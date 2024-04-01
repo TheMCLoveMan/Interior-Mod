@@ -1,4 +1,5 @@
 {
+  "loader": "interiormod:furniture",
   "credit": "Made with Blockbench",
   "textures": {
     "secondary": "block/oak_log",
@@ -114,6 +115,7 @@
       }
     }
   ],
+  "gui_light": "side",
   "display": {
     "thirdperson_righthand": {
       "rotation": [75, 315, 0],

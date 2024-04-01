@@ -44,11 +44,11 @@ public class FurnitureModel implements IDynamicBakedModel {
 
     private final Map<String, BakedModel> cache = Maps.newHashMap();
 
-    public FurnitureModel(ModelBakery modelBakery, Function<Material, TextureAtlasSprite> spriteGetter, BlockModel model, ModelState modelTransform) {
+    public FurnitureModel(ModelBakery modelBakery, Function<Material, TextureAtlasSprite> spriteGetter, BlockModel model, ModelState modelTransform, ResourceLocation modelLocation) {
         this.modelBakery = modelBakery;
         this.spriteGetter = spriteGetter;
         this.model = model;
-        this.bakedModel = model.bake(modelBakery, model, spriteGetter, modelTransform, InteriorMod.getId("furniture"), true);
+        this.bakedModel = model.bake(modelBakery, model, spriteGetter, modelTransform, modelLocation, true);
         this.modelTransform = modelTransform;
     }
 
@@ -166,14 +166,16 @@ public class FurnitureModel implements IDynamicBakedModel {
         return this.bakedModel.handlePerspective(cameraTransformType, poseStack);
     }
 
-    private static class Geometry implements IModelGeometry<Geometry> {
+    public static class Geometry implements IModelGeometry<Geometry> {
+        private final BlockModel base;
+
+        private Geometry(BlockModel base) {
+            this.base = base;
+        }
 
         @Override
         public BakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material, TextureAtlasSprite> spriteGetter, ModelState modelTransform, ItemOverrides overrides, ResourceLocation modelLocation) {
-            BlockModel model = (BlockModel) owner.getOwnerModel();
-            assert model != null;
-            assert model.parent != null;
-            return new FurnitureModel(bakery, spriteGetter, model.parent, modelTransform);
+            return new FurnitureModel(bakery, spriteGetter, this.base, modelTransform, modelLocation);
         }
 
         @Override
@@ -194,7 +196,9 @@ public class FurnitureModel implements IDynamicBakedModel {
 
         @Override
         public Geometry read(JsonDeserializationContext deserializationContext, JsonObject modelContents) {
-            return new Geometry();
+            modelContents.remove("loader");
+            BlockModel base = deserializationContext.deserialize(modelContents, BlockModel.class);
+            return new Geometry(base);
         }
     }
 }

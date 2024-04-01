@@ -2,7 +2,7 @@
   "multipart": [
     {
       "apply": {
-        "model": "interiormod:block/table_plate_override"
+        "model": "interiormod:block/table_plate"
       }
     },
     {
@@ -11,7 +11,7 @@
         "west": "false"
       },
       "apply": {
-        "model": "interiormod:block/table_leg_override",
+        "model": "interiormod:block/table_leg",
         "y": 270,
         "uvlock": true
       }
@@ -22,7 +22,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "interiormod:block/table_leg_override",
+        "model": "interiormod:block/table_leg",
         "uvlock": true
       }
     },
@@ -32,7 +32,7 @@
         "west": "false"
       },
       "apply": {
-        "model": "interiormod:block/table_leg_override",
+        "model": "interiormod:block/table_leg",
         "y": 180,
         "uvlock": true
       }
@@ -43,7 +43,7 @@
         "east": "false"
       },
       "apply": {
-        "model": "interiormod:block/table_leg_override",
+        "model": "interiormod:block/table_leg",
         "y": 90,
         "uvlock": true
       }

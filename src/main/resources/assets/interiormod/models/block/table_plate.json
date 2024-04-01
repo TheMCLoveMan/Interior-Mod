@@ -1,6 +1,6 @@
 {
+	"loader": "interiormod:furniture",
 	"credit": "Made with Blockbench",
-	"parent": "minecraft:block/block",
 	"textures": {
 		"particle": "block/oak_log",
 		"primary": "block/oak_log"
