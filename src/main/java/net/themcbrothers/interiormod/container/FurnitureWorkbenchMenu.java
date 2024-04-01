@@ -5,13 +5,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.themcbrothers.interiormod.container.slot.FurnitureResultSlot;
 import net.themcbrothers.interiormod.init.InteriorBlocks;
 import net.themcbrothers.interiormod.init.InteriorContainers;
+import net.themcbrothers.interiormod.init.InteriorRecipeBookExtensions;
 import net.themcbrothers.interiormod.init.InteriorRecipeTypes;
 
 import java.util.Optional;
@@ -19,7 +22,7 @@ import java.util.Optional;
 /**
  * @author TheMCBrothers
  */
-public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
+public class FurnitureWorkbenchMenu extends RecipeBookMenu<CraftingContainer> {
 
     private final CraftingContainer craftSlots = new CraftingContainer(this, 3, 3);
     private final ResultContainer resultSlots = new ResultContainer();
@@ -144,5 +147,51 @@ public class FurnitureWorkbenchMenu extends AbstractContainerMenu {
     @Override
     public boolean canTakeItemForPickAll(ItemStack stack, Slot slot) {
         return slot.container != this.resultSlots && super.canTakeItemForPickAll(stack, slot);
+    }
+
+    @Override
+    public void fillCraftSlotsStackedContents(StackedContents stackedContents) {
+        this.craftSlots.fillStackedContents(stackedContents);
+    }
+
+    @Override
+    public void clearCraftingContent() {
+        this.craftSlots.clearContent();
+        this.resultSlots.clearContent();
+    }
+
+    @Override
+    public boolean recipeMatches(Recipe<? super CraftingContainer> recipe) {
+        return recipe.matches(this.craftSlots, this.player.level);
+    }
+
+    @Override
+    public int getResultSlotIndex() {
+        return 0;
+    }
+
+    @Override
+    public int getGridWidth() {
+        return this.craftSlots.getWidth();
+    }
+
+    @Override
+    public int getGridHeight() {
+        return this.craftSlots.getHeight();
+    }
+
+    @Override
+    public int getSize() {
+        return 10;
+    }
+
+    @Override
+    public RecipeBookType getRecipeBookType() {
+        return InteriorRecipeBookExtensions.FURNITURE_WORKBENCH_TYPE;
+    }
+
+    @Override
+    public boolean shouldMoveToInventory(int index) {
+        return index != this.getResultSlotIndex();
     }
 }
