@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "interior:block/furniture_workbench_bottom",
+    "east": "interior:block/furniture_workbench_side",
+    "north": "interior:block/furniture_workbench_front",
+    "particle": "interior:block/furniture_workbench_front",
+    "south": "interior:block/furniture_workbench_side",
+    "up": "interior:block/furniture_workbench_top",
+    "west": "interior:block/furniture_workbench_front"
+  }
+}
