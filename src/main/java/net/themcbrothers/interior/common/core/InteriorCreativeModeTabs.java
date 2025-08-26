@@ -10,8 +10,7 @@ public final class InteriorCreativeModeTabs {
             Registration.CREATIVE_MODE_TABS.register("main", () -> CreativeModeTab.builder()
                     .title(Component.translatable("itemGroup.interior.main"))
                     .icon(() -> new ItemStack(InteriorBlocks.FURNITURE_WORKBENCH))
-                    .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(InteriorBlocks.FURNITURE_WORKBENCH);
-                    })
+                    .displayItems((itemDisplayParameters, output) ->
+                            output.acceptAll(Registration.ITEMS.getEntries().stream().map(ItemStack::new).toList()))
                     .build());
 }

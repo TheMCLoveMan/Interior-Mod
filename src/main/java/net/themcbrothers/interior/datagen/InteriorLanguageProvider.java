@@ -16,6 +16,7 @@ class InteriorLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         // Blocks
         addBlock(InteriorBlocks.FURNITURE_WORKBENCH, "Furniture Workbench");
+        addBlock(InteriorBlocks.FURNITURE, "Furniture");
 
         // Items
         addItem(InteriorItems.SCREWDRIVER, "Screwdriver");
